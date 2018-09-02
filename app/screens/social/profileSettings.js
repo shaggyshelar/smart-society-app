@@ -19,7 +19,6 @@ import {
 import { data } from "../../data";
 import { Container } from "native-base";
 import { Avatar } from "../../components";
-import LinkedInModal from "react-native-linkedin";
 
 function renderIf(condition, content) {
   if (condition) {
@@ -266,17 +265,6 @@ export class ProfileSettings extends React.Component {
           </RkAvoidKeyboard>
 
           <View style={styles.container}>
-            <LinkedInModal
-              ref={ref => {
-                this.modal = ref;
-              }}
-              linkText=""
-              clientID="81ri5ss1q7cmvg"
-              clientSecret="NNn9HQRcQfLHHF5F"
-              redirectUri="http://eternussolutions.com"
-              onError={error => this.onLinkedInError(error)}
-              onSuccess={token => this.onLinkedInConnect(token)}
-            />
             {renderIf(
               this.state.isLoading,
               <Container style={[styles.root]}>

@@ -3,7 +3,6 @@ import { RkText, RkStyleSheet } from 'react-native-ui-kitten';
 import { Container } from 'native-base';
 import { ScrollView, View, ActivityIndicator, Platform,NetInfo } from 'react-native';
 import * as loginService from '../../serviceActions/login';
-import QRCode from "react-native-qrcode";
 
 export class UserProfile extends React.Component {
   static navigationOptions = {
@@ -98,11 +97,6 @@ export class UserProfile extends React.Component {
                   <RkText style={{fontSize : 20, textAlign: 'center'}} >{userInfo.briefInfo}</RkText>
                 </View>
                 <View style={[styles.row]}>
-                   <QRCode
-                   value={qrText}
-                   size={160}
-                   bgColor='black'
-                   fgColor='white'/>  
                    </View>
                  <View style={{marginTop:10}}>
                    <RkText style={{fontSize : 15, textAlign: 'center'}}>{attendeeCode}</RkText>

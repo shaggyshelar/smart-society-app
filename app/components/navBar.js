@@ -94,13 +94,14 @@ export class NavBar extends React.Component {
   }
 
   render() {
-    let options = this.props.headerProps.getScreenDetails(this.props.headerProps.scene).options;
+    // let options = this.props.headerProps.getScreenDetails(this.props.headerProps.scene).options;
     return (
       <View style={styles.layout}>
         <View style={styles.container}>
-          {this._renderTitle(options.title, options.headerTitle)}
+        <RkText style={{color: 'white'}}>Hello</RkText>
+          {/* {this._renderTitle(options.title, options.headerTitle)}
           {this._renderLeft(options.headerLeft)}
-          {this._renderRight(options.headerRight)}
+          {this._renderRight(options.headerRight)} */}
         </View>
       </View>
     )

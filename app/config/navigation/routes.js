@@ -2,11 +2,12 @@ import React from 'react';
 import { Image, ScrollView, View, ActivityIndicator, NetInfo, Platform } from 'react-native';
 import { RkText, RkStyleSheet } from 'react-native-ui-kitten';
 import { Container } from 'native-base';
-import * as Screens from '../../screens/index';
-import { HomePage } from '../../screens/index';
-import { Questions } from '../../screens/index';
+//import * as Screens from '../../screens/index';
+// import { HomePage } from '../../screens/index';
+// import { Questions } from '../../screens/index';
 import _ from 'lodash';
-import { Service } from './../../services';
+import { Service } from '../../services';
+
 
 export class HomePageMenuScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -100,21 +101,24 @@ export class HomePageMenuScreen extends React.Component {
   }
 
   getCurrentUser() {
-    Service.getCurrentUser((userDetails) => {
-      let Uid = userDetails.uid;
-      this.setState({
-        userId: Uid
-      })
-      if (this.state.showHome == false) {
-        this.getQuestionsData(Uid);
-      }
-      else {
-        this.setState({
-          showQuestions: false,
-          showHomepage: true
-        })
-      }
-    });
+    this.setState({
+      userId: "1234"
+    })
+    // Service.getCurrentUser((userDetails) => {
+    //   let Uid = userDetails.uid;
+    //   this.setState({
+    //     userId: Uid
+    //   })
+    //   if (this.state.showHome == false) {
+    //     this.getQuestionsData(Uid);
+    //   }
+    //   else {
+    //     this.setState({
+    //       showQuestions: false,
+    //       showHomepage: true
+    //     })
+    //   }
+    // });
   }
   
   getQuestionsData = (Uid) => {
@@ -140,28 +144,7 @@ export class HomePageMenuScreen extends React.Component {
       });
   }
   render() {
-    if (this.state.showQuestions == true && this.state.showHomepage == false) {
-      return (
-        <Questions navigation={this.props.navigation} userId={this.state.userId} />
-      );
-    }
-    else if (this.state.showQuestions == false && this.state.showHomepage == true) {
-      return (
-        <View style={styles.mainView}>
-          <HomePage navigation={this.props.navigation} />
-          <View style={styles.footerOffline}>
-            {
-              (!this.state.isLoading && this.state.isOffline) ? <RkText rkType="small" style={styles.footerText}>The Internet connection appears to be offline. </RkText> : null
-            }
-          </View>
-          <View style={styles.footer}>
-            <RkText rkType="small" style={styles.footerText}>Powered by</RkText>
-            <RkText rkType="small" style={styles.companyName}> Eternus Solutions Pvt. Ltd. </RkText>
-          </View>
-        </View>
-      );
-    }
-    else if (!this.state.isLoading && this.state.isOffline) {
+    if (!this.state.isLoading && this.state.isOffline) {
       return (
         <Container style={styles.root}>
           <ScrollView>
@@ -235,13 +218,13 @@ export const MainRoutes = [
   //   children: [],
   //   roleNames: ['Admin', 'Volunteer']
   // },
-  {
-    id: 'MyProfile',
-    title: 'My Profile',
-    icon: 'ios-person',
-    screen: Screens.UserProfile,
-    children: [],
-  },
+  // {
+  //   id: 'MyProfile',
+  //   title: 'My Profile',
+  //   icon: 'ios-person',
+  //   screen: Screens.UserProfile,
+  //   children: [],
+  // },
   // {
   //   id: 'Speakers',
   //   title: 'Speakers',
@@ -270,13 +253,13 @@ export const MainRoutes = [
   //    screen: Screens.HelpDesk,
   //    children: []
   //  },
-   {
-    id: 'AboutUs',
-    title: 'About Event',
-    icon: 'md-information-circle',
-    screen: Screens.AboutUs,
-    children: []
-  },
+  //  {
+  //   id: 'AboutUs',
+  //   title: 'About Event',
+  //   icon: 'md-information-circle',
+  //   screen: Screens.AboutUs,
+  //   children: []
+  // },
   // {
   //   id: 'AboutEternus',
   //   title: 'About Eternus',

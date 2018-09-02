@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react-native';
 
-export class Service {
+export default class Service {
     static getDocRef(docName) {
         return "";
     }

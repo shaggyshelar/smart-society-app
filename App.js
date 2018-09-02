@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+  //"main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
 export default class App extends React.Component {
   render() {
     return (

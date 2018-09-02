@@ -21,18 +21,18 @@ export class SideMenu extends React.Component {
     super(props);
     this._navigateAction = this._navigate.bind(this);
     this.state = {
-      userDetails: {}
+      userDetails: { firstName: "", lastName: "" , roleName: "Admin"}
     };
   }
 
   componentWillMount() {
-    AsyncStorage.getItem("USER_DETAILS")
-      .then(userDetails => {
-        this.setState({ userDetails: JSON.parse(userDetails) });
-      })
-      .catch(err => {
-        console.warn("Errors");
-      });
+    // AsyncStorage.getItem("USER_DETAILS")
+    //   .then(userDetails => {
+    //     this.setState({ userDetails: JSON.parse(userDetails) });
+    //   })
+    //   .catch(err => {
+    //     console.warn("Errors");
+    //   });
   }
 
   _navigate(route) {
