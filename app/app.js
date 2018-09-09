@@ -1,5 +1,9 @@
 import React from "react";
-import { createDrawerNavigator, createStackNavigator } from "react-navigation";
+import {
+  createDrawerNavigator,
+  createStackNavigator,
+  createSwitchNavigator
+} from "react-navigation";
 import { withRkTheme } from "react-native-ui-kitten";
 import { AppRoutes } from "./config/navigation/routesBuilder";
 import * as Screens from "./screens";
@@ -24,6 +28,17 @@ function getCurrentRouteName(navigationState) {
 }
 
 let SideMenu = withRkTheme(Screens.SideMenu);
+const AppStack = createDrawerNavigator(
+  {
+    ...AppRoutes
+  },
+  {
+    drawerOpenRoute: "DrawerOpen",
+    drawerCloseRoute: "DrawerClose",
+    drawerToggleRoute: "DrawerToggle",
+    contentComponent: props => <SideMenu {...props} />
+  }
+);
 const KittenApp = createStackNavigator(
   {
     First: {
@@ -45,6 +60,19 @@ const KittenApp = createStackNavigator(
   },
   {
     headerMode: "none"
+  }
+);
+
+const AuthStack = createStackNavigator({ SignIn: { screen: Screens.LoginV2 } });
+
+const SwitchStack = createSwitchNavigator(
+  {
+    AuthLoading: Screens.SplashScreen,
+    App: AppStack,
+    Auth: AuthStack
+  },
+  {
+    initialRouteName: "AuthLoading"
   }
 );
 
@@ -75,8 +103,8 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
 
-    return (
-      <View style={{ flex: 1 }}>
+    {
+      /* <View style={{ flex: 1 }}>
         <KittenApp
           onNavigationStateChange={(prevState, currentState) => {
             const currentScreen = getCurrentRouteName(currentState);
@@ -86,9 +114,10 @@ export default class App extends React.Component {
             //   track(currentScreen);
             // }
           }}
-        />
-      </View>
-    );
+        /> 
+      </View>*/
+    }
+    return <SwitchStack />;
   }
 }
 

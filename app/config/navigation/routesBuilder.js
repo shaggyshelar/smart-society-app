@@ -37,10 +37,13 @@ const DrawerRoutes = Object.keys(main).reduce((routes, name) => {
       navigationOptions: ({ navigation, screenProps }) => ({
         gesturesEnabled: false,
         header: headerProps => {
+          const { scene } = headerProps;
+          const { options } = scene.descriptor;
           return (
             <ThemedNavigationBar
               navigation={navigation}
-              headerProps={headerProps}
+              scene={scene}
+              options={options}
             />
           );
         }
@@ -51,5 +54,3 @@ const DrawerRoutes = Object.keys(main).reduce((routes, name) => {
 }, {});
 
 export const AppRoutes = DrawerRoutes;
-export const DashboardRoutes = _.find(MainRoutes, { id: "DashboardsMenu" })
-  .children;

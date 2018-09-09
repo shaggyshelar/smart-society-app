@@ -41,7 +41,7 @@ export class NavBar extends React.Component {
       : undefined;
 
     let renderLeftContent = () => {
-      let index = _.findIndex(this.props.headerProps.scenes, {isActive: true});
+      let index = _.findIndex(this.props.scenes, {isActive: true});
       if (index > 0) {
         return <RkButton
           rkType='clear'
@@ -91,7 +91,7 @@ export class NavBar extends React.Component {
   }
 
   render() {
-    let options = this.props.headerProps.getScreenDetails(this.props.headerProps.scene).options;
+    let options = this.props.options;
     return (
       <View style={styles.layout}>
         <View style={styles.container}>

@@ -24,13 +24,8 @@ export class SplashScreen extends React.Component {
       if (this.state.progress == 1) {
         clearInterval(this.timer);
         setTimeout(() => {
-          console.warn("Navigating.....");
-          // StatusBar.setHidden(false, "slide");
-          // let toHome = NavigationActions.reset({
-          //   index: 0,
-          //   actions: [NavigationActions.navigate({ routeName: "Home" })]
-          // });
-          // this.props.navigation.dispatch(toHome);
+          StatusBar.setHidden(false, "slide");
+          this.props.navigation.navigate('App');
         }, timeFrame);
       } else {
         let random = Math.random() * 0.5;

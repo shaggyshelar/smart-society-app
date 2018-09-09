@@ -47,51 +47,11 @@ export class LoginV2 extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    // var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // if (!this.state.email || !re.test(this.state.email)) {
-    //   Alert.alert(
-    //     "Invalid Email",
-    //     "Please enter valid email.",
-    //     [{ text: "Ok", onPress: () => {} }],
-    //     { cancelable: false }
-    //   );
-    //   return;
-    // }
-
-    // if (
-    //   !this.state.password ||
-    //   this.state.password.toString().trim().length < 6
-    // ) {
-    //   Alert.alert(
-    //     "Invalid Password",
-    //     "Invalid length of password.",
-    //     [{ text: "Ok", onPress: () => {} }],
-    //     { cancelable: false }
-    //   );
-    //   return;
-    // }
 
     let userInfo = { id: "1234" };
     AsyncStorage.setItem("USER_DETAILS", userInfo);
+    console.warn("To App...");
     navigation.navigate("App");
-    //this.setState({ isLoading: true });
-    // loginService
-    //   .loginUser(user)
-    //   .then(response => {
-    //     let userInfo = JSON.stringify(response);
-    //     AsyncStorage.setItem("USER_DETAILS", userInfo);
-    //     navigation.navigate("Event");
-    //   })
-    //   .catch(error => {
-    //     this.setState({ isLoading: false });
-    //     let errorMessage = error;
-    //     Alert.alert(
-    //       "Error",
-    //       errorMessage,
-    //       [{ text: "Cancel", onPress: () => {} }],
-    //       { cancelable: false }
-    //     );
-    //   });
   }
 
   render() {
