@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  Image,
-  View,
-  Dimensions,
-  StatusBar,
-  AsyncStorage,
-} from "react-native";
-import {
-  RkText,
-  RkStyleSheet,
-  RkButton,
-  RkTheme
-} from "react-native-ui-kitten";
+import { StyleSheet, Image, View, Dimensions, StatusBar } from "react-native";
+import { RkText, RkTheme } from "react-native-ui-kitten";
 import { ProgressBar } from "../../components";
 import { KittenTheme } from "../../config/theme";
-import { scale, scaleVertical } from "../../utils/scale";
+import { NavigationActions } from "react-navigation";
+import { scale, scaleModerate, scaleVertical } from "../../utils/scale";
 
 let timeFrame = 500;
 
@@ -26,29 +16,6 @@ export class SplashScreen extends React.Component {
     };
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    let navigation = this.props.navigation;
-    AsyncStorage.getItem("USER_DETAILS")
-      .then(userDetails => {
-        if (userDetails) {
-          navigation.navigate("Event");
-        } else {
-          let keysToRemove = [
-            "USER_DETAILS",
-            "USER_LINKEDIN_TOKEN",
-            "SESSIONS"
-          ];
-          AsyncStorage.multiRemove(keysToRemove, err => {});
-          navigation.navigate("Auth");
-        }
-      })
-      .catch(function(error) {
-        navigation.navigate("Auth");
-        console.warn("Error reading local storage.");
-      });
-  };
-
   componentDidMount() {
     StatusBar.setHidden(true, "none");
     RkTheme.setTheme(KittenTheme);
@@ -57,13 +24,13 @@ export class SplashScreen extends React.Component {
       if (this.state.progress == 1) {
         clearInterval(this.timer);
         setTimeout(() => {
-          StatusBar.setHidden(false, "slide");
+          console.warn("Navigating.....");
+          // StatusBar.setHidden(false, "slide");
           // let toHome = NavigationActions.reset({
           //   index: 0,
-          //   actions: [NavigationActions.navigate({routeName: 'Auth'})]
+          //   actions: [NavigationActions.navigate({ routeName: "Home" })]
           // });
-          // this.props.navigation.dispatch(toHome)
-          this._bootstrapAsync();
+          // this.props.navigation.dispatch(toHome);
         }, timeFrame);
       } else {
         let random = Math.random() * 0.5;
@@ -85,9 +52,12 @@ export class SplashScreen extends React.Component {
             style={[styles.image, { width }]}
             source={require("../../assets/images/splashBack.png")}
           />
-          <View style={[styles.text, styles.tieTitle]}>
+          <View style={styles.text}>
+            <RkText rkType="light" style={styles.hero}>
+              React Native
+            </RkText>
             <RkText rkType="logo" style={styles.appName}>
-              Events
+              UI Kitten
             </RkText>
           </View>
         </View>
@@ -102,33 +72,11 @@ export class SplashScreen extends React.Component {
   }
 }
 
-let styles = RkStyleSheet.create(theme => ({
+let styles = StyleSheet.create({
   container: {
     backgroundColor: KittenTheme.colors.screen.base,
     justifyContent: "space-between",
     flex: 1
-  },
-  buttons: {
-    flexDirection: "row",
-    marginBottom: scaleVertical(24),
-    marginHorizontal: 24,
-    justifyContent: "space-around"
-  },
-  button: {
-    borderColor: theme.colors.border.solid
-  },
-  sponsorsImage: {
-    /*resizeMode: 'cover',
-    height: scaleVertical(430),*/
-    //width: 210,
-    // height:32
-
-    height: scaleVertical(25),
-    resizeMode: "contain"
-  },
-  textRow: {
-    flexDirection: "row",
-    justifyContent: "center"
   },
   image: {
     resizeMode: "cover",
@@ -147,9 +95,5 @@ let styles = RkStyleSheet.create(theme => ({
     alignSelf: "center",
     marginBottom: 35,
     backgroundColor: "#e5e5e5"
-  },
-  tieTitle: {
-    marginTop: -80,
-    marginBottom: 50
   }
-}));
+});

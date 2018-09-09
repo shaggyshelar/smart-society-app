@@ -9,8 +9,6 @@ import {RkText, RkButton, RkStyleSheet} from 'react-native-ui-kitten';
 import {FontAwesome} from '../assets/icons';
 import {UIConstants} from '../config/appConstants';
 import {scale, scaleModerate, scaleVertical} from '../utils/scale';
-import { AppRegistry, Text } from 'react-native';
-
 
 export class NavBar extends React.Component {
   constructor(props) {
@@ -26,8 +24,7 @@ export class NavBar extends React.Component {
       : undefined;
 
     return headerRight && (
-        // <View style={[{width}, styles.right, styles.rightLogo]}>{headerRight}</View>
-        <View style={[styles.right, styles.rightLogo]}>{headerRight}</View>
+        <View style={[{width}, styles.right]}>{headerRight}</View>
       );
   }
 
@@ -52,7 +49,7 @@ export class NavBar extends React.Component {
           onPress={() => {
             this.props.navigation.goBack()
           }}>
-          <RkText style={{color: 'white'}} rkType='awesome hero'>{FontAwesome.chevronLeft}</RkText>
+          <RkText rkType='awesome hero'>{FontAwesome.chevronLeft}</RkText>
         </RkButton>
       }
       else {
@@ -62,7 +59,7 @@ export class NavBar extends React.Component {
           onPress={() => {
             this.props.navigation.navigate('DrawerOpen')
           }}>
-          <RkText rkType='awesome' style={{color: 'white'}}>{FontAwesome.bars}</RkText>
+          <RkText rkType='awesome'>{FontAwesome.bars}</RkText>
         </RkButton>
       }
     };
@@ -88,20 +85,19 @@ export class NavBar extends React.Component {
 
     return (
       <View style={styles.title} onLayout={onLayout}>
-        <RkText style={{color: 'white'}}>{title}</RkText>
+        <RkText>{title}</RkText>
       </View>
     )
   }
 
   render() {
-    // let options = this.props.headerProps.getScreenDetails(this.props.headerProps.scene).options;
+    let options = this.props.headerProps.getScreenDetails(this.props.headerProps.scene).options;
     return (
       <View style={styles.layout}>
         <View style={styles.container}>
-        <RkText style={{color: 'white'}}>Hello</RkText>
-          {/* {this._renderTitle(options.title, options.headerTitle)}
+          {this._renderTitle(options.title, options.headerTitle)}
           {this._renderLeft(options.headerLeft)}
-          {this._renderRight(options.headerRight)} */}
+          {this._renderRight(options.headerRight)}
         </View>
       </View>
     )
@@ -110,8 +106,7 @@ export class NavBar extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   layout: {
-    //backgroundColor: theme.colors.screen.base,
-    backgroundColor: '#ed1b24',
+    backgroundColor: theme.colors.screen.base,
     paddingTop: UIConstants.StatusbarHeight,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: theme.colors.border.base
@@ -132,17 +127,14 @@ let styles = RkStyleSheet.create(theme => ({
     right: 0,
     top: 0,
     bottom: 0,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
-    alignItems: 'center',    
+    alignItems: 'center',
   },
   menu: {
     width: 40
-  },
-  rightLogo:{
-    borderRadius: 4,    
   }
 }));

@@ -12,15 +12,6 @@ import {scale, scaleModerate, scaleVertical} from '../utils/scale';
 
 export let bootstrap = () => {
 
-  const originalSend = XMLHttpRequest.prototype.send;
-  XMLHttpRequest.prototype.send = function(body) {
-    if (body === '') {
-      originalSend.call(this);
-    } else {
-      originalSend.call(this, body);
-    }
-  };
-
   RkTheme.setTheme(KittenTheme, null);
 
   /*
@@ -217,24 +208,6 @@ export let bootstrap = () => {
     borderRadius: scale(31),
     borderColor: theme => theme.colors.border.accent,
     borderWidth: 1,
-    backgroundColor: theme => theme.colors.control.background
-  });
-
-  RkTheme.setType('RkButton', 'sponsors', {
-    height: scale(50),
-    width: scale(180),
-    borderRadius: scale(0),
-    borderColor: theme => theme.colors.border.accent,
-    borderWidth: 0,
-    backgroundColor: theme => theme.colors.control.background
-  });
-
-  RkTheme.setType('RkButton', 'sponsorsSplashScreen', {
-    height: scale(50),
-    width: scale(180),
-    borderRadius: scale(0),
-    borderColor: theme => theme.colors.border.accent,
-    borderWidth: 0,
     backgroundColor: theme => theme.colors.control.background
   });
   /*
@@ -507,22 +480,6 @@ export let bootstrap = () => {
     highlightBorderTopColor: theme => theme.colors.border.highlight,
     highlightBorderBottomColor: theme => theme.colors.border.highlight,
     windowBorderColor: theme => theme.colors.border.highlight,
-  });
-
-  
-  /* RKTabView */
-
-  RkTheme.setType('RkTabView', 'dark', {
-    backgroundColor:'#778f9b',
-    color:'white',
-    /*borderColor:'#4a636d'*/
-    borderColor:'#ed1b24'
-  });
-  
-    RkTheme.setType('RkTabView', 'darkSelected', {
-    backgroundColor:'#4a636d',
-    /*borderColor:'#4a636d'*/
-    borderColor:'#ed1b24'
   });
 
   /*
