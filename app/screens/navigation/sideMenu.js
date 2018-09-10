@@ -19,7 +19,7 @@ export class SideMenu extends React.Component {
   }
 
   _navigate(route) {
-    this.props.navigation.replace(route.id);
+    this.props.navigation.navigate(route.id);
   }
 
   _renderIcon() {
