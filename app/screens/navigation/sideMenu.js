@@ -5,42 +5,21 @@ import {
   ScrollView,
   Image,
   Platform,
-  StyleSheet,
-  Alert
+  StyleSheet
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { RkStyleSheet, RkText, RkTheme } from "react-native-ui-kitten";
 import { MainRoutes } from "../../config/navigation/routes";
-import { Icon } from "native-base";
-import _ from "lodash";
 import { FontAwesome } from "../../assets/icons";
-import { AsyncStorage } from "react-native";
 
 export class SideMenu extends React.Component {
   constructor(props) {
     super(props);
     this._navigateAction = this._navigate.bind(this);
-    this.state = {
-      userDetails: { firstName: "", lastName: "" , roleName: "Admin"}
-    };
-  }
-
-  componentWillMount() {
-    // AsyncStorage.getItem("USER_DETAILS")
-    //   .then(userDetails => {
-    //     this.setState({ userDetails: JSON.parse(userDetails) });
-    //   })
-    //   .catch(err => {
-    //     console.warn("Errors");
-    //   });
   }
 
   _navigate(route) {
-    let resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: route.id })]
-    });
-    this.props.navigation.dispatch(resetAction);
+    this.props.navigation.replace(route.id);
   }
 
   _renderIcon() {
@@ -54,50 +33,13 @@ export class SideMenu extends React.Component {
     return (
       <Image
         style={styles.icon}
-        source={require("../../assets/images/smallLogo.png")}
+        source={require("../../assets/images/smallLogoDark.png")}
       />
-    );
-  }
-
-  _onLogout() {
-    let navigation = this.props.navigation;
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
-      [
-        {
-          text: "Yes",
-          onPress: () => {
-            let keysToRemove = [
-              "USER_DETAILS",
-              "USER_LINKEDIN_TOKEN",
-              "SESSIONS"
-            ];
-            AsyncStorage.multiRemove(keysToRemove, err => {});
-            navigation.navigate("Auth");
-          }
-        },
-        { text: "No", onPress: () => {} }
-      ],
-      { cancelable: false }
     );
   }
 
   render() {
     let menu = MainRoutes.map((route, index) => {
-      if (
-        this.state.userDetails &&
-        this.state.userDetails.roleName &&
-        route.roleNames
-      ) {
-        let foundIndex = route.roleNames.indexOf(
-          this.state.userDetails.roleName
-        );
-        if (foundIndex == -1) {
-          return null;
-        }
-      }
-
       return (
         <TouchableHighlight
           style={styles.container}
@@ -108,18 +50,12 @@ export class SideMenu extends React.Component {
         >
           <View style={styles.content}>
             <View style={styles.content}>
-              <RkText
-                style={[styles.icon, styles.sidebarIcon]}
-                rkType="moon primary xlarge"
-              >
-                <Icon name={route.icon} />
+              <RkText style={styles.icon} rkType="moon primary xlarge">
+                {route.icon}
               </RkText>
-              <RkText style={styles.sidebarMenuName}>{route.title}</RkText>
+              <RkText>{route.title}</RkText>
             </View>
-            <RkText
-              rkType="awesome secondaryColor small"
-              style={styles.rightIcon}
-            >
+            <RkText rkType="awesome secondaryColor small">
               {FontAwesome.chevronRight}
             </RkText>
           </View>
@@ -132,40 +68,9 @@ export class SideMenu extends React.Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={[styles.container, styles.content]}>
             {this._renderIcon()}
-            <RkText style={styles.tieName}>TiE Pune Events</RkText>
+            <RkText rkType="logo">UI Kitten</RkText>
           </View>
           {menu}
-
-          <TouchableHighlight
-            style={styles.container}
-            key={"Logout"}
-            underlayColor={RkTheme.current.colors.button.underlay}
-            activeOpacity={1}
-            onPress={this._onLogout.bind(this)}
-          >
-            <View style={styles.content}>
-              <View style={styles.content}>
-                <RkText
-                  style={[styles.icon, styles.sidebarIcon]}
-                  rkType="moon primary xlarge"
-                >
-                  <Icon name="ios-exit" />
-                </RkText>
-                <RkText style={styles.sidebarMenuName}>Logout </RkText>
-                <RkText style={styles.sidebarMenuName}>
-                  {" "}
-                  {this.state.userDetails.firstName}{" "}
-                  {this.state.userDetails.lastName}
-                </RkText>
-              </View>
-              <RkText
-                rkType="awesome secondaryColor small"
-                style={styles.rightIcon}
-              >
-                {FontAwesome.chevronRight}
-              </RkText>
-            </View>
-          </TouchableHighlight>
         </ScrollView>
       </View>
     );
@@ -174,7 +79,7 @@ export class SideMenu extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   container: {
-    height: 40,
+    height: 80,
     paddingHorizontal: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border.base
@@ -190,20 +95,5 @@ let styles = RkStyleSheet.create(theme => ({
   },
   icon: {
     marginRight: 13
-  },
-  tieName: {
-    fontSize: 16
-  },
-  sidebarIcon: {
-    fontSize: 13,
-    color: "#607B8C",
-    width: 30
-  },
-  sidebarMenuName: {
-    fontSize: 14,
-    color: "#607B8C"
-  },
-  rightIcon: {
-    color: "#607B8C"
   }
 }));

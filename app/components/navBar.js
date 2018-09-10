@@ -48,7 +48,7 @@ export class NavBar extends React.Component {
           style={styles.menu}
           onPress={() => {
             this.props.navigation.goBack()
-          }}>
+            }}>
           <RkText rkType='awesome hero'>{FontAwesome.chevronLeft}</RkText>
         </RkButton>
       }
@@ -57,7 +57,7 @@ export class NavBar extends React.Component {
           rkType='clear'
           style={styles.menu}
           onPress={() => {
-            this.props.navigation.navigate('DrawerOpen')
+            this.props.navigation.toggleDrawer()
           }}>
           <RkText rkType='awesome'>{FontAwesome.bars}</RkText>
         </RkButton>
